@@ -1,11 +1,14 @@
-import { Fragment } from 'react'
+import { Fragment, useTransition } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon, LifebuoyIcon } from '@heroicons/react/24/outline'
 import cn from 'classnames'
+import { useTranslation } from 'react-i18next'
 import { System } from '@/config/System'
 import { EnvVariables } from '@/config/EnvVariables'
 
 export default function Navbar() {
+  const { t } = useTranslation()
+
   return (
     <Disclosure as="nav" className="bg-white shadow">
       {({ open }) => (
@@ -34,7 +37,7 @@ export default function Navbar() {
                   <a
                     href="#"
                     className="inline-flex items-center border-b-2 border-gray-700 px-1 pt-1 text-sm font-medium text-gray-900">
-                    Projects
+                    {t('common.projects')}
                   </a>
                   <a
                     href="#"

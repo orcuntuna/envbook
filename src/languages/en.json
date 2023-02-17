@@ -1,0 +1,17 @@
+{
+  "system": {
+    "app_slogan" : "Environment management tool"
+  },
+  "auth": {
+    "email_address": "Email Address",
+    "password": "Password",
+    "remember_me": "Remember me",
+    "forgot_password": "Forgot your password?",
+    "sign_in": "Sign in"
+  },
+  "common": {
+    "projects": "Projects",
+    "members": "Members",
+    "logs": "Logs"
+  }
+}

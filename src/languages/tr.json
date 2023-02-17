@@ -1,0 +1,17 @@
+{
+  "system": {
+    "app_slogan" : "Environment yönetim aracı"
+  },
+  "auth": {
+    "email_address": "E-posta Adresi",
+    "password": "Parola",
+    "remember_me": "Beni hatırla",
+    "forgot_password": "Parolanı mı unuttun?",
+    "sign_in": "Giriş Yap"
+  },
+  "common": {
+    "projects": "Projeler",
+    "members": "Kullanıcılar",
+    "logs": "Kayıtlar"
+  }
+}

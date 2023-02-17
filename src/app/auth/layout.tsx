@@ -1,9 +1,13 @@
+'use client'
+
 import { ReactNode } from 'react'
 import { EnvVariables } from '@/config/EnvVariables'
 import { System } from '@/config/System'
 import { LockClosedIcon } from '@heroicons/react/24/outline'
+import { useTranslation } from 'react-i18next'
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
+  const { t } = useTranslation()
   return (
     <html lang="en" className="h-full bg-gray-50">
       <body className="h-full">
@@ -20,7 +24,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                   className="font-medium text-gray-600 hover:text-gray-500"
                   target="_blank"
                   rel="noreferrer">
-                  Environment management tool
+                  {t('system.app_slogan')}
                 </a>
               </p>
             </div>

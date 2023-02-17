@@ -1,4 +1,7 @@
+'use client'
+
 import '@/assets/styles/main.css'
+import '@/config/Localization'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
