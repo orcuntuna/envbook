@@ -7,11 +7,13 @@
     "password": "Password",
     "remember_me": "Remember me",
     "forgot_password": "Forgot your password?",
-    "sign_in": "Sign in"
+    "sign_in": "Sign in",
+    "sign_out": "Sign out"
   },
   "common": {
     "projects": "Projects",
     "members": "Members",
-    "logs": "Logs"
+    "logs": "Logs",
+    "settings": "Settings"
   }
 }

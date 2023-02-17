@@ -6,6 +6,9 @@ import { useTranslation } from 'react-i18next'
 import { System } from '@/config/System'
 import { EnvVariables } from '@/config/EnvVariables'
 
+import defaultAvatar from '@/assets/images/default-avatar.jpeg'
+import Image from 'next/image'
+
 export default function Navbar() {
   const { t } = useTranslation()
 
@@ -16,13 +19,11 @@ export default function Navbar() {
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                {/* Mobile menu button */}
                 <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-800">
-                  <span className="sr-only">Open main menu</span>
                   {open ? (
-                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                    <XMarkIcon className="block h-6 w-6" />
                   ) : (
-                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                    <Bars3Icon className="block h-6 w-6" />
                   )}
                 </Disclosure.Button>
               </div>
@@ -57,7 +58,6 @@ export default function Navbar() {
                   target="_blank"
                   className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2"
                   rel="noreferrer">
-                  <span className="sr-only">Help</span>
                   <LifebuoyIcon className="h-6 w-6" aria-hidden="true" />
                 </a>
 
@@ -65,12 +65,7 @@ export default function Navbar() {
                 <Menu as="div" className="relative ml-3">
                   <div>
                     <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2">
-                      <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                      />
+                      <Image className="h-8 w-8 rounded-full" src={defaultAvatar} alt="user" />
                     </Menu.Button>
                   </div>
                   <Transition
@@ -90,7 +85,7 @@ export default function Navbar() {
                               active ? 'bg-gray-100' : '',
                               'block px-4 py-2 text-sm text-gray-700',
                             )}>
-                            Your Profile
+                            {t('common.settings')}
                           </a>
                         )}
                       </Menu.Item>
@@ -102,19 +97,7 @@ export default function Navbar() {
                               active ? 'bg-gray-100' : '',
                               'block px-4 py-2 text-sm text-gray-700',
                             )}>
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={cn(
-                              active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700',
-                            )}>
-                            Sign out
+                            {t('auth.sign_out')}
                           </a>
                         )}
                       </Menu.Item>

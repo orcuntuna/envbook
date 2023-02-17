@@ -8,7 +8,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     <html lang="en" className="h-full bg-gray-50">
       <body className="h-full">
         <Navbar />
-        {children}
+        <div className="max-w-6xl mx-auto mt-12">{children}</div>
       </body>
     </html>
   )
