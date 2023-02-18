@@ -1,6 +1,12 @@
-import { Fragment, useTransition } from 'react'
+import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon, LifebuoyIcon } from '@heroicons/react/24/outline'
+import {
+  Bars3Icon,
+  XMarkIcon,
+  LifebuoyIcon,
+  CogIcon,
+  ArrowRightOnRectangleIcon,
+} from '@heroicons/react/24/outline'
 import cn from 'classnames'
 import { useTranslation } from 'react-i18next'
 import { System } from '@/config/System'
@@ -43,12 +49,17 @@ export default function Navbar() {
                   <a
                     href="#"
                     className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
-                    Members
+                    {t('common.api_keys')}
                   </a>
                   <a
                     href="#"
                     className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
-                    Logs
+                    {t('common.members')}
+                  </a>
+                  <a
+                    href="#"
+                    className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                    {t('common.logs')}
                   </a>
                 </div>
               </div>
@@ -76,15 +87,16 @@ export default function Navbar() {
                     leave="transition ease-in duration-75"
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95">
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none font-medium">
                       <Menu.Item>
                         {({ active }) => (
                           <a
                             href="#"
                             className={cn(
                               active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700',
+                              'block px-4 py-2 text-sm text-gray-700 flex items-center',
                             )}>
+                            <CogIcon className="w-4 h-4 text-gray-500 mr-2" />
                             {t('common.settings')}
                           </a>
                         )}
@@ -95,8 +107,9 @@ export default function Navbar() {
                             href="#"
                             className={cn(
                               active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700',
+                              'block px-4 py-2 text-sm text-gray-700 flex items-center',
                             )}>
+                            <ArrowRightOnRectangleIcon className="w-4 h-4 text-gray-500 mr-2" />
                             {t('auth.sign_out')}
                           </a>
                         )}
@@ -115,19 +128,25 @@ export default function Navbar() {
                 as="a"
                 href="#"
                 className="block border-l-4 border-gray-800 bg-gray-100 py-2 pl-3 pr-4 text-base font-medium text-gray-900">
-                Projects
+                {t('common.projects')}
               </Disclosure.Button>
               <Disclosure.Button
                 as="a"
                 href="#"
                 className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-normal text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700">
-                Members
+                {t('common.api_keys')}
               </Disclosure.Button>
               <Disclosure.Button
                 as="a"
                 href="#"
                 className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-normal text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700">
-                Logs
+                {t('common.members')}
+              </Disclosure.Button>
+              <Disclosure.Button
+                as="a"
+                href="#"
+                className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-normal text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700">
+                {t('common.logs')}
               </Disclosure.Button>
             </div>
           </Disclosure.Panel>

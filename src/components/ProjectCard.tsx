@@ -1,4 +1,4 @@
-import { CalendarIcon } from '@heroicons/react/20/solid'
+import { CalendarIcon, PlusIcon } from '@heroicons/react/20/solid'
 
 export default function ProjectCard({ project }: { project: any }) {
   return (
@@ -9,15 +9,21 @@ export default function ProjectCard({ project }: { project: any }) {
             <a href="#" className="truncate text-xl font-medium text-gray-800 hover:text-gray-900">
               {project.name}
             </a>
-            <div className="mt-3.5 flex space-x-1.5">
+            <div className="mt-3.5 flex space-x-1.5 items-strech flex-wrap">
               {project.environments.map((environment: any) => (
                 <button
                   key={`environment-${environment.id}`}
                   type="button"
-                  className="inline-flex items-center rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2">
+                  className="inline-flex items-center rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2">
                   {environment.slug}
                 </button>
               ))}
+              <button
+                type="button"
+                className="inline-flex items-center rounded-md border border-gray-300 bg-white px-2.5 text-sm font-medium leading-4 text-blue-500 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                <PlusIcon className="w-4 h-4 leading-4 text-blue-600 mr-1" />
+                <span>Add Environment</span>
+              </button>
             </div>
           </div>
           <div className="flex items-center text-sm text-gray-500">
