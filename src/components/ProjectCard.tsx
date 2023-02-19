@@ -1,6 +1,12 @@
 import { CalendarIcon, PlusIcon } from '@heroicons/react/20/solid'
+import { useTranslation } from 'react-i18next'
 
-export default function ProjectCard({ project }: { project: any }) {
+type ProjectCardProps = {
+  project: any
+}
+
+export default function ProjectCard({ project }: ProjectCardProps) {
+  const { t } = useTranslation()
   return (
     <li>
       <div className="px-4 py-6 sm:px-6">
@@ -22,7 +28,7 @@ export default function ProjectCard({ project }: { project: any }) {
                 type="button"
                 className="inline-flex items-center rounded-md border border-gray-300 bg-white px-2.5 text-sm font-medium leading-4 text-blue-500 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                 <PlusIcon className="w-4 h-4 leading-4 text-blue-600 mr-1" />
-                <span>Add Environment</span>
+                <span>{t('common.add_environment')}</span>
               </button>
             </div>
           </div>

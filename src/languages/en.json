@@ -15,6 +15,15 @@
     "members": "Members",
     "logs": "Logs",
     "settings": "Settings",
-    "api_keys": "API Keys"
+    "api_keys": "API Keys",
+    "projects_and_environments": "Projects and environments",
+    "add_project": "Add project",
+    "add_environment": "Add environment",
+    "project_name": "Project name",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "examples": {
+    "my_project": "My Project"
   }
 }
