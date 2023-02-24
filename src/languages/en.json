@@ -18,12 +18,22 @@
     "api_keys": "API Keys",
     "projects_and_environments": "Projects and environments",
     "add_project": "Add project",
+    "add_project_modal_title": "Add project",
+    "add_project_modal_desc": "Type the project name you will create.",
     "add_environment": "Add environment",
     "project_name": "Project name",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "add_env_modal_title": "Add environment to \"{{project_name}}\"",
+    "add_env_modal_desc": "The environment name and file name you will add must be unique within this project.",
+    "env_name": "Environment name",
+    "file_name": "File name",
+    "clone_variables": "Clone variables",
+    "optional": "Optional"
   },
   "examples": {
-    "my_project": "My Project"
+    "my_project": "My Project",
+    "production": "production",
+    "dotenv": ".env"
   }
 }
