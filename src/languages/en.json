@@ -25,7 +25,7 @@
     "cancel": "Cancel",
     "save": "Save",
     "add_env_modal_title": "Add environment to \"{{project_name}}\"",
-    "add_env_modal_desc": "The environment name and file name you will add must be unique within this project.",
+    "add_env_modal_desc": "The environment name you will add must be unique within this project.",
     "env_name": "Environment name",
     "file_name": "File name",
     "clone_variables": "Clone variables",
