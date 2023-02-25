@@ -130,7 +130,7 @@ export default function EnvironmentPage() {
             </button>
           </div>
         </div>
-        <div className="w-10/12">
+        <div className="w-10/12 pb-6">
           <div className="flex items-center">
             <button
               type="button"
