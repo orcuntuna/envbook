@@ -35,7 +35,9 @@
     "key": "Key",
     "value": "Value",
     "add_variable": "Add Variable",
-    "save_updated_variables": "Save Updated Variables"
+    "save_updated_variables": "Save Updated Variables",
+    "download": "Download",
+    "import_file": "Import File"
   },
   "examples": {
     "my_project": "My Project",

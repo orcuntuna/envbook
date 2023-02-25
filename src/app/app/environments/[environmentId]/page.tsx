@@ -4,7 +4,12 @@ import { useTranslation } from 'react-i18next'
 import { useModal } from '@/hooks/useModal'
 import AddEnvironmentModal from '@/components/modals/AddEnvironmentModal'
 import { CheckIcon, ChevronUpIcon, ClipboardDocumentIcon } from '@heroicons/react/20/solid'
-import { TrashIcon, PlusIcon } from '@heroicons/react/24/outline'
+import {
+  TrashIcon,
+  PlusIcon,
+  ArrowDownTrayIcon,
+  ArrowUpTrayIcon,
+} from '@heroicons/react/24/outline'
 import { Disclosure } from '@headlessui/react'
 import { useState } from 'react'
 
@@ -67,7 +72,7 @@ export default function EnvironmentPage() {
         <div className="w-3/12">
           <div>
             <div className="rounded-md bg-white border overflow-hidden">
-              <div className="relative border-b pl-4 pr-3 py-2 flex cursor-pointer focus:outline-none hover:bg-gray-50 flex items-center">
+              <div className="bg-gray-50 relative border-b pl-4 pr-3 py-2 flex cursor-pointer focus:outline-none hover:bg-gray-50 flex items-center">
                 <span className="flex flex-col">
                   <span id="privacy-setting-0-label" className="block text-sm font-medium">
                     production
@@ -126,7 +131,30 @@ export default function EnvironmentPage() {
           </div>
         </div>
         <div className="w-10/12">
-          <div className="w-full">
+          <div className="flex items-center">
+            <button
+              type="button"
+              className="mr-2 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 h-9 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2">
+              <ArrowUpTrayIcon className="-ml-0.5 mr-2 h-4 w-4" />
+              {t('common.import_file')}
+            </button>
+            <button
+              type="button"
+              className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 h-9 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2">
+              <ArrowDownTrayIcon className="-ml-0.5 mr-2 h-4 w-4" />
+              <span className="mr-2">{t('common.download')}</span>
+              <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
+                .env
+              </span>
+            </button>
+            <button
+              type="button"
+              className="ml-auto inline-flex items-center rounded-md border border-gray-300 bg-white px-3 h-9 text-sm font-medium leading-4 text-blue-600 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2">
+              <ClipboardDocumentIcon className="-ml-0.5 mr-2 h-4 w-4" />
+              {t('common.save_updated_variables')}
+            </button>
+          </div>
+          <div className="w-full mt-3">
             <Disclosure as="div" defaultOpen={true}>
               {({ open }) => (
                 <div className="overflow-hidden bg-white border rounded-md">
@@ -176,7 +204,7 @@ export default function EnvironmentPage() {
                         </div>
                       ))}
                     </div>
-                    <div className="mt-4 flex items-center justify-between">
+                    <div className="mt-4 flex items-center">
                       <button
                         type="button"
                         onClick={addFilledVariable}
@@ -184,14 +212,6 @@ export default function EnvironmentPage() {
                         <PlusIcon className="w-4 h-4 mr-1.5" />
                         {t('common.add_variable')}
                       </button>
-                      <div className="mr-10">
-                        <button
-                          type="button"
-                          className="mr-1.5 inline-flex items-center rounded-md border border-transparent bg-blue-600 px-3 py-2 text-sm font-normal leading-4 text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                          <ClipboardDocumentIcon className="-ml-0.5 mr-2 h-4 w-4" />
-                          {t('common.save_updated_variables')}
-                        </button>
-                      </div>
                     </div>
                   </Disclosure.Panel>
                 </div>
