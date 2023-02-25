@@ -29,7 +29,13 @@
     "env_name": "Environment name",
     "file_name": "File name",
     "clone_variables": "Clone variables",
-    "optional": "Optional"
+    "optional": "Optional",
+    "filled_variables": "Filled Variables",
+    "missing_variables": "Missing Variables",
+    "key": "Key",
+    "value": "Value",
+    "add_variable": "Add Variable",
+    "save_updated_variables": "Save Updated Variables"
   },
   "examples": {
     "my_project": "My Project",

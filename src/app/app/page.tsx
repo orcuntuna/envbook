@@ -96,7 +96,7 @@ export default function DashboardPage() {
           </button>
         </div>
       </div>
-      <div className="overflow-hidden bg-white border border-gray-100 shadow-sm sm:rounded-md">
+      <div className="overflow-hidden bg-white border rounded-md">
         <ul role="list" className="divide-y divide-gray-200">
           {projects.map((project) => (
             <ProjectCard key={`project-${project.id}`} project={project} />
