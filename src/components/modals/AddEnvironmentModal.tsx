@@ -99,7 +99,7 @@ export default function AddEnvironmentModal({
                     <Select
                       items={environmentsForClone}
                       selectedItem={selectedEnvForClone}
-                      placeholder={'Select environment to clone'}
+                      placeholder={t('common.choose_environment_to_clone')}
                       onChangeSelectedItem={(item) => setSelectedEnvForClone(item)}
                     />
                   </div>
