@@ -11,6 +11,7 @@ type SelectProps = {
   selectedItem: SelectItem | null
   placeholder: string
   onChangeSelectedItem: (item: SelectItem | null) => void
+  emptyItemDisabled?: boolean
 }
 
 export default function Select({
@@ -18,6 +19,7 @@ export default function Select({
   selectedItem,
   placeholder,
   onChangeSelectedItem,
+  emptyItemDisabled,
 }: SelectProps) {
   return (
     <div className="">
@@ -27,14 +29,16 @@ export default function Select({
             {selectedItem ? (
               <>
                 <span className="block truncate">{selectedItem?.label}</span>
-                <button
-                  className="absolute inset-y-0 right-6 flex items-center px-1.5"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    onChangeSelectedItem(null)
-                  }}>
-                  <XMarkIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                </button>
+                {!emptyItemDisabled && (
+                  <button
+                    className="absolute inset-y-0 right-6 flex items-center px-1.5"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      onChangeSelectedItem(null)
+                    }}>
+                    <XMarkIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                  </button>
+                )}
               </>
             ) : (
               <span className="block truncate text-gray-400">{placeholder}</span>

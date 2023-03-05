@@ -1,4 +1,6 @@
-import { Fragment } from 'react'
+'use client'
+
+import { Fragment, useEffect } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import {
   Bars3Icon,
@@ -14,9 +16,13 @@ import { EnvVariables } from '@/config/EnvVariables'
 
 import defaultAvatar from '@/assets/images/default-avatar.jpeg'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 
 export default function Navbar() {
   const { t } = useTranslation()
+  const pathname = usePathname()
 
   return (
     <Disclosure as="nav" className="bg-white shadow">
@@ -41,26 +47,42 @@ export default function Navbar() {
                 </div>
                 <div className="hidden sm:ml-8 sm:flex sm:space-x-6">
                   {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
-                  <a
-                    href="#"
-                    className="inline-flex items-center border-b-2 border-gray-700 px-1 pt-1 text-sm font-medium text-gray-900">
+                  <Link
+                    href="/app"
+                    className={cn(
+                      'inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                      pathname === '/app' &&
+                        'border-gray-700 font-medium text-gray-900 !border-gray-700',
+                    )}>
                     {t('common.projects')}
-                  </a>
-                  <a
-                    href="#"
-                    className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                  </Link>
+                  <Link
+                    href="/app/api_keys"
+                    className={cn(
+                      'inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                      pathname === '/app/api_keys' &&
+                        'border-gray-700 font-medium text-gray-900 !border-gray-700',
+                    )}>
                     {t('common.api_keys')}
-                  </a>
-                  <a
-                    href="#"
-                    className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                  </Link>
+                  <Link
+                    href="/app/members"
+                    className={cn(
+                      'inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                      pathname === '/app/members' &&
+                        'border-gray-700 font-medium text-gray-900 !border-gray-700',
+                    )}>
                     {t('common.members')}
-                  </a>
-                  <a
-                    href="#"
-                    className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                  </Link>
+                  <Link
+                    href="/app/logs"
+                    className={cn(
+                      'inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                      pathname === '/app/logs' &&
+                        'border-gray-700 font-medium text-gray-900 !border-gray-700',
+                    )}>
                     {t('common.logs')}
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -123,29 +145,40 @@ export default function Navbar() {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 pt-2 pb-4">
-              {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
               <Disclosure.Button
-                as="a"
-                href="#"
-                className="block border-l-4 border-gray-800 bg-gray-100 py-2 pl-3 pr-4 text-base font-medium text-gray-900">
+                as={Link}
+                href="/app"
+                className={cn(
+                  'block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-normal text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700',
+                  pathname === '/app' && '!border-gray-800 bg-gray-100 text-gray-900',
+                )}>
                 {t('common.projects')}
               </Disclosure.Button>
               <Disclosure.Button
-                as="a"
-                href="#"
-                className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-normal text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700">
+                as={Link}
+                href="/app/api_keys"
+                className={cn(
+                  'block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-normal text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700',
+                  pathname === '/app/api_keys' && '!border-gray-800 bg-gray-100 text-gray-900',
+                )}>
                 {t('common.api_keys')}
               </Disclosure.Button>
               <Disclosure.Button
                 as="a"
                 href="#"
-                className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-normal text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700">
+                className={cn(
+                  'block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-normal text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700',
+                  pathname === '/app/members' && '!border-gray-800 bg-gray-100 text-gray-900',
+                )}>
                 {t('common.members')}
               </Disclosure.Button>
               <Disclosure.Button
                 as="a"
                 href="#"
-                className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-normal text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700">
+                className={cn(
+                  'block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-normal text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700',
+                  pathname === '/app/logs' && '!border-gray-800 bg-gray-100 text-gray-900',
+                )}>
                 {t('common.logs')}
               </Disclosure.Button>
             </div>

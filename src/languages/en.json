@@ -54,7 +54,17 @@
     "add_custom_api_key_modal_title": "Add Custom API Key",
     "add_custom_api_key_modal_desc": "You can generate custom keys with special entitlements for use in CI/CD tools. Only admins can see these keys.",
     "choose_project": "Choose Project",
-    "choose_environment_to_clone": "Choose environment to clone"
+    "choose_environment_to_clone": "Choose environment to clone",
+    "last_login_date": "Last login date",
+    "authorization": "Authorization",
+    "all_projects": "All projects",
+    "edit_user": "Edit User",
+    "edit_user_modal_title": "Edit User",
+    "edit_user_modal_desc": "You can not change the user's email via the administration panel.",
+    "permissions": "Permissions",
+    "admin": "Admin",
+    "member": "Member",
+    "choose_role": "Choose Role"
   },
   "examples": {
     "my_project": "My Project",
