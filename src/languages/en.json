@@ -64,7 +64,11 @@
     "permissions": "Permissions",
     "admin": "Admin",
     "member": "Member",
-    "choose_role": "Choose Role"
+    "choose_role": "Choose Role",
+    "confirm": "Confirm",
+    "delete_user": "Delete User",
+    "delete_user_message": "The user will be permanently deleted. Do you confirm?",
+    "delete": "Delete"
   },
   "examples": {
     "my_project": "My Project",

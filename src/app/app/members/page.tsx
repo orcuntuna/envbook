@@ -5,6 +5,7 @@ import { TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
 import { useTranslation } from 'react-i18next'
 import { useModal } from '@/hooks/useModal'
 import EditUserModal from '@/components/modals/EditUserModal'
+import ConfirmModal from '@/components/modals/ConfirmModal'
 
 const user = {
   name: 'John Wick',
@@ -35,6 +36,7 @@ const user = {
 export default function ApiKeysPage() {
   const { t } = useTranslation()
   const { isOpen: editUserModalIsOpen, setIsOpen: setEditUserModalIsOpen } = useModal()
+  const { isOpen: deleteUserModalIsOpen, setIsOpen: setDeleteUserModalIsOpen } = useModal()
 
   return (
     <div>
@@ -67,7 +69,7 @@ export default function ApiKeysPage() {
                       <th
                         scope="col"
                         className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                        {t('common.authorization')}
+                        {t('common.projects')}
                       </th>
                       <th
                         scope="col"
@@ -110,7 +112,9 @@ export default function ApiKeysPage() {
                             className="w-8 h-8 bg-gray-100 rounded-md hover:bg-gray-200 flex items-center justify-center text-gray-500">
                             <PencilSquareIcon className="w-5 h-5" />
                           </button>
-                          <button className="w-8 h-8 bg-red-100 rounded-md hover:bg-red-200 flex items-center justify-center text-red-500">
+                          <button
+                            onClick={() => setDeleteUserModalIsOpen(true)}
+                            className="w-8 h-8 bg-red-100 rounded-md hover:bg-red-200 flex items-center justify-center text-red-500">
                             <TrashIcon className="w-5 h-5" />
                           </button>
                         </div>
@@ -161,6 +165,15 @@ export default function ApiKeysPage() {
         onCloseModal={() => setEditUserModalIsOpen(false)}
         onDoneModal={() => setEditUserModalIsOpen(false)}
         user={user}
+      />
+      <ConfirmModal
+        isOpen={deleteUserModalIsOpen}
+        onCloseModal={() => setDeleteUserModalIsOpen(false)}
+        onDoneModal={() => setDeleteUserModalIsOpen(false)}
+        type={'DANGER'}
+        title={t('common.delete_user')}
+        content={t('common.delete_user_message')}
+        confirmButtonText={t('common.delete').toString()}
       />
     </div>
   )
