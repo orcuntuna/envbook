@@ -24,8 +24,8 @@ export default function Select({
   return (
     <div className="">
       <Listbox value={selectedItem} onChange={onChangeSelectedItem}>
-        <div className="relative mt-1">
-          <Listbox.Button className="block w-full rounded-md border py-2 px-3 text-left border-gray-300 shadow-sm focus:border-gray-600 focus:ring-gray-600 sm:text-sm placeholder:text-gray-400">
+        <div className="relative">
+          <Listbox.Button className="block w-full rounded-md border py-2 px-3 text-left border-gray-300 shadow-sm focus:border-gray-600 focus:ring-gray-600 sm:text-sm placeholder:text-gray-400 bg-white">
             {selectedItem ? (
               <>
                 <span className="block truncate">{selectedItem?.label}</span>

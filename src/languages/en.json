@@ -37,7 +37,7 @@
     "add_variable": "Add Variable",
     "save_updated_variables": "Save Updated Variables",
     "download": "Download",
-    "import_file": "Import File",
+    "import": "Import",
     "custom_api_keys": "Custom API Keys",
     "memberss_api_keys": "Members' API Keys",
     "add_custom_api_key": "Add Custom API Key",
@@ -68,7 +68,14 @@
     "confirm": "Confirm",
     "delete_user": "Delete User",
     "delete_user_message": "The user will be permanently deleted. Do you confirm?",
-    "delete": "Delete"
+    "delete": "Delete",
+    "choose_user": "Choose User",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "apply": "Apply",
+    "update_environments_confirm_title": "",
+    "update_environments_confirm_desc": "",
+    "x_missing": "{{count}} missing"
   },
   "examples": {
     "my_project": "My Project",

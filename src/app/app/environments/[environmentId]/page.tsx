@@ -9,6 +9,8 @@ import {
   PlusIcon,
   ArrowDownTrayIcon,
   ArrowUpTrayIcon,
+  EyeIcon,
+  EyeSlashIcon,
 } from '@heroicons/react/24/outline'
 import { Disclosure } from '@headlessui/react'
 import { useState } from 'react'
@@ -16,6 +18,7 @@ import { useState } from 'react'
 export default function EnvironmentPage() {
   const { t } = useTranslation()
   const { isOpen: addEnvironmentModalIsOpen, setIsOpen: setAddEnvironmentModalIsOpen } = useModal()
+  const [isActiveProtectionMode, setIsActiveProtectionMode] = useState(true)
 
   const [filledVariables, setFilledVariables] = useState<Array<{ key: string; value: string }>>([
     { key: 'NEXT_PUBLIC_API_BASE_URL', value: 'https://api.example.com/v1' },
@@ -24,9 +27,9 @@ export default function EnvironmentPage() {
     { key: '', value: '' },
   ])
 
-  const [missingVariables, setMissingVariables] = useState<Array<{ key: string; value: string }>>([
-    { key: 'NEXT_PUBLIC_SENTRY_APP_ID', value: '' },
-    { key: 'NEXT_PUBLIC_SENTRY_APP_KEY', value: '' },
+  const [missingVariables, setMissingVariables] = useState<string[]>([
+    'NEXT_PUBLIC_SENTRY_APP_ID',
+    'NEXT_PUBLIC_SENTRY_APP_KEY',
   ])
 
   const addFilledVariable = () => {
@@ -39,31 +42,26 @@ export default function EnvironmentPage() {
     )
   }
 
-  const moveMissingToFilled = (missingIndex: number) => {
-    // store variable
-    const variable = missingVariables[missingIndex]
-
-    // delete from missing list
-    setMissingVariables((variables) =>
-      variables.filter((_, variableIndex) => variableIndex !== missingIndex),
+  const onClickMissingVariable = (variable: string) => {
+    setMissingVariables((missingVariables) => missingVariables.filter((v) => v !== variable))
+    const existsVariableInFilled = filledVariables.find(
+      (filledVariable) => filledVariable.key === variable,
     )
+    if (!existsVariableInFilled) {
+      const emptyIndex = filledVariables.findIndex((v) => !v.key)
 
-    // find a good position in filled list
-    let newIndex = filledVariables.length > 0 ? filledVariables.length : 0
-    for (let variableIndex in filledVariables) {
-      const variable = filledVariables[variableIndex]
-      if (variable.key === '') {
-        newIndex = Number(variableIndex)
-        break
+      if (emptyIndex !== -1) {
+        // boş bir değişken zaten varsa, onun bir önceki pozisyonuna ekleyin
+        setFilledVariables((filledVariables) => [
+          ...filledVariables.slice(0, emptyIndex),
+          { key: variable, value: '' },
+          ...filledVariables.slice(emptyIndex),
+        ])
+      } else {
+        // boş bir değişken yoksa, en sona ekleyin
+        setFilledVariables((filledVariables) => [...filledVariables, { key: variable, value: '' }])
       }
     }
-
-    // move to filled list
-    setFilledVariables((variables) => {
-      const list = [...variables]
-      list.splice(newIndex, 0, variable)
-      return list
-    })
   }
 
   return (
@@ -98,8 +96,8 @@ export default function EnvironmentPage() {
                   </span>
                 </span>
                 <div className="ml-auto">
-                  <span className="inline-flex items-center rounded-full border border-gray-300 bg-white px-2.5 py-0.5 text-xs font-medium leading-5 text-gray-700 shadow-sm hover:bg-gray-50">
-                    3 missing
+                  <span className="inline-flex items-center rounded-full border border-gray-300 bg-white px-2.5 py-0.5 text-xs font-medium leading-5 text-gray-700 shadow-sm">
+                    {t('common.x_missing', { count: 3 })}
                   </span>
                 </div>
               </div>
@@ -114,8 +112,8 @@ export default function EnvironmentPage() {
                   </span>
                 </span>
                 <div className="ml-auto">
-                  <span className="inline-flex items-center rounded-full border border-gray-300 bg-white px-2.5 py-0.5 text-xs font-medium leading-5 text-gray-700 shadow-sm hover:bg-gray-50">
-                    8 missing
+                  <span className="inline-flex items-center rounded-full border border-gray-300 bg-white px-2.5 py-0.5 text-xs font-medium leading-5 text-gray-700 shadow-sm">
+                    {t('common.x_missing', { count: 2 })}
                   </span>
                 </div>
               </div>
@@ -136,7 +134,7 @@ export default function EnvironmentPage() {
               type="button"
               className="mr-2 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 h-9 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2">
               <ArrowUpTrayIcon className="-ml-0.5 mr-2 h-4 w-4" />
-              {t('common.import_file')}
+              {t('common.import')}
             </button>
             <button
               type="button"
@@ -147,19 +145,34 @@ export default function EnvironmentPage() {
                 .env
               </span>
             </button>
-            <button
-              type="button"
-              className="ml-auto inline-flex items-center rounded-md border border-gray-300 bg-white px-3 h-9 text-sm font-medium leading-4 text-blue-600 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2">
-              <ClipboardDocumentIcon className="-ml-0.5 mr-2 h-4 w-4" />
-              {t('common.save_updated_variables')}
-            </button>
+            <div className="flex items-center space-x-2 ml-auto">
+              <button
+                type="button"
+                className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 h-9 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2"
+                onClick={() => setIsActiveProtectionMode((status) => !status)}>
+                {isActiveProtectionMode ? (
+                  <EyeIcon className="h-4 w-4" />
+                ) : (
+                  <EyeSlashIcon className="h-4 w-4" />
+                )}
+              </button>
+              <button
+                type="button"
+                className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 h-9 text-sm font-medium leading-4 text-blue-600 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2">
+                <ClipboardDocumentIcon className="-ml-0.5 mr-2 h-4 w-4" />
+                {t('common.save')}
+              </button>
+            </div>
           </div>
           <div className="w-full mt-3">
             <Disclosure as="div" defaultOpen={true}>
               {({ open }) => (
                 <div className="overflow-hidden bg-white border rounded-md">
-                  <Disclosure.Button className="flex w-full justify-between bg-sky-50 px-4 py-2.5 text-left font-medium text-gray-600 focus:outline-none focus-visible:ring focus-visible:ring-sky-500 focus-visible:ring-opacity-75">
-                    <span>{t('common.filled_variables')}</span>
+                  <Disclosure.Button className="flex w-full justify-between bg-gray-50 px-4 py-2.5 text-left font-medium text-gray-600 focus:outline-none focus-visible:ring focus-visible:ring-gray-500 focus-visible:ring-opacity-75">
+                    <div className="flex items-center">
+                      <div className="w-2.5 h-2.5 rounded-full bg-sky-400 mr-2"></div>
+                      <span>{t('common.filled_variables')}</span>
+                    </div>
                     <ChevronUpIcon
                       className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-gray-500`}
                     />
@@ -174,23 +187,27 @@ export default function EnvironmentPage() {
                       </div>
                       <div className="w-9"></div>
                     </div>
-                    <div className="mt-2 space-y-3">
+                    <div className="mt-2 border-gray-300 border border-b-0">
                       {filledVariables.map((variable, variableIndex) => (
-                        <div className="flex text-gray-900" key={`filled-${variableIndex}`}>
-                          <div className="mr-3" style={{ flex: 2 }}>
+                        <div
+                          className="flex text-gray-900 border-gray-300 border-b"
+                          key={`filled-${variableIndex}`}>
+                          <div className="border-gray-200 border-r" style={{ flex: 2 }}>
                             <input
                               type="text"
-                              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-600 focus:ring-gray-600 sm:text-sm placeholder:text-gray-400"
+                              className="block w-full border-gray-300 border-0 focus:ring-gray-600 focus:ring-0 focus:outline-0 sm:text-sm placeholder:text-gray-400"
                               placeholder={t('common.key').toString()}
                               value={variable.key}
+                              autoComplete="off"
                             />
                           </div>
-                          <div className="mr-1.5" style={{ flex: 3 }}>
+                          <div className="border-gray-300 mr-1.5" style={{ flex: 3 }}>
                             <input
-                              type="text"
-                              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-600 focus:ring-gray-600 sm:text-sm placeholder:text-gray-400"
+                              type={isActiveProtectionMode ? 'password' : 'text'}
+                              className="block w-full border-gray-300 border-0 focus:ring-gray-600 focus:ring-0 focus:outline-0 sm:text-sm placeholder:text-gray-400"
                               placeholder={t('common.value').toString()}
                               value={variable.value}
+                              autoComplete="off"
                             />
                           </div>
                           <div className="w-9 flex self-strech">
@@ -198,7 +215,7 @@ export default function EnvironmentPage() {
                               type="button"
                               onClick={() => deleteFilledVariable(variableIndex)}
                               className="w-full self-strech rounded-md hover:bg-gray-100 flex justify-center items-center">
-                              <TrashIcon className="w-5 h-5 text-gray-500" />
+                              <TrashIcon className="w-4 h-4 text-gray-500" />
                             </button>
                           </div>
                         </div>
@@ -220,51 +237,25 @@ export default function EnvironmentPage() {
             <Disclosure as="div" className="mt-4" defaultOpen={true}>
               {({ open }) => (
                 <div className="overflow-hidden bg-white border rounded-md">
-                  <Disclosure.Button className="flex w-full justify-between bg-rose-50 px-4 py-2.5 text-left font-medium text-gray-600 focus:outline-none focus-visible:ring focus-visible:ring-rose-500 focus-visible:ring-opacity-75">
-                    <span>{t('common.missing_variables')}</span>
+                  <Disclosure.Button className="flex w-full justify-between bg-gray-50 px-4 py-2.5 text-left font-medium text-gray-600 focus:outline-none focus-visible:ring focus-visible:ring-gray-500 focus-visible:ring-opacity-75">
+                    <div className="flex items-center">
+                      <div className="w-2.5 h-2.5 rounded-full bg-red-400 mr-2"></div>
+                      <span>{t('common.missing_variables')}</span>
+                    </div>
                     <ChevronUpIcon
                       className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-gray-500`}
                     />
                   </Disclosure.Button>
                   <Disclosure.Panel className="px-5 py-4 text-sm text-gray-500 border-t">
-                    <div className="flex text-sm font-normal text-gray-500">
-                      <div className="mr-3 pl-1" style={{ flex: 2 }}>
-                        {t('common.key')}
-                      </div>
-                      <div className="mr-1.5 pl-1" style={{ flex: 3 }}>
-                        {t('common.value')}
-                      </div>
-                      <div className="w-9"></div>
-                    </div>
-                    <div className="mt-2 space-y-3">
-                      {missingVariables.map((variable, variableIndex) => (
-                        <div className="flex text-gray-900" key={`filled-${variableIndex}`}>
-                          <div className="mr-3" style={{ flex: 2 }}>
-                            <input
-                              type="text"
-                              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-600 focus:ring-gray-600 sm:text-sm placeholder:text-gray-400"
-                              placeholder={t('common.key').toString()}
-                              defaultValue={variable.key}
-                              readOnly={true}
-                            />
-                          </div>
-                          <div className="mr-1.5" style={{ flex: 3 }}>
-                            <input
-                              type="text"
-                              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-600 focus:ring-gray-600 sm:text-sm placeholder:text-gray-400"
-                              placeholder={t('common.value').toString()}
-                              value={variable.value}
-                            />
-                          </div>
-                          <div className="w-9 flex self-strech">
-                            <button
-                              type="button"
-                              onClick={() => moveMissingToFilled(variableIndex)}
-                              className="w-full self-strech rounded-md hover:bg-gray-100 flex justify-center items-center">
-                              <CheckIcon className="w-5 h-5 text-gray-500" />
-                            </button>
-                          </div>
-                        </div>
+                    <div className="space-x-2">
+                      {missingVariables.map((variable) => (
+                        <button
+                          key={variable}
+                          type="button"
+                          className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 h-9 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2"
+                          onClick={() => onClickMissingVariable(variable)}>
+                          {variable}
+                        </button>
                       ))}
                     </div>
                   </Disclosure.Panel>
